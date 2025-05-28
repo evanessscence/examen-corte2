@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CitizenController;
 
+
+Route::get('/cities/pdf', [CityController::class, 'generatePDF'])->name('cities.pdf');
+Route::get('/citizens/pdf', [CitizenController::class, 'generatePDF'])->name('citizens.pdf');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
