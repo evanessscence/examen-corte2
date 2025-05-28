@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\City;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class CityController extends Controller
 {
@@ -107,6 +109,14 @@ class CityController extends Controller
             return redirect()->back()->with('error', 'Error al eliminar la ciudad: ' . $e->getMessage());
         }
     }
+    public function generatePDF()
+{
+    $cities = City::all();
+
+    $pdf = Pdf::loadView('pdf.cities', compact('cities'));
+
+    return $pdf->download('ciudades.pdf');
+}
 
     
 }

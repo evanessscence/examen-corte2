@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Citizen;
 use App\Models\City;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use Illuminate\Http\Request;
 
@@ -119,4 +120,12 @@ class CitizenController extends Controller
             return redirect()->back()->with('error', 'Error al eliminar el ciudadano: ' . $e->getMessage());
         }
     }
+    public function generatePDF()
+{
+    $citizens = Citizen::with('city')->get();
+
+    $pdf = Pdf::loadView('pdf.citizens', compact('citizens'));
+
+    return $pdf->download('ciudadanos.pdf');
+}
 }
